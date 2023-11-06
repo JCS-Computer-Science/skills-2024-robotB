@@ -11,7 +11,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.DriveConstants;
+import org.firstinspires.ftc.teamcode.processors.BlobProcessor;
 import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
@@ -22,15 +24,20 @@ import java.util.List;
 public class VisionSubsystem extends SubsystemBase {
     private AprilTagProcessor aprilTag;
     private TfodProcessor tfod;
+    private BlobProcessor blob;
     private VisionPortal visionPortal;
     private TelemetrySubsystem telemetry;
 
     public VisionSubsystem(@NonNull HardwareMap hardwareMap, TelemetrySubsystem telemetry) {
         aprilTag = AprilTagProcessor.easyCreateWithDefaults();
         tfod = TfodProcessor.easyCreateWithDefaults();
+        blob = new BlobProcessor();
         visionPortal = VisionPortal.easyCreateWithDefaults(
-                hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag, tfod);
+                hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag, tfod, blob);
         this.telemetry = telemetry;
+
+        visionPortal.setProcessorEnabled(aprilTag, false);
+        visionPortal.setProcessorEnabled(tfod, false);
     }
 
     public void telemetryAprilTag() {
@@ -76,11 +83,60 @@ public class VisionSubsystem extends SubsystemBase {
         }
     }
 
+    public void telemetryBlob() {
+        telemetry.addData("Blob Selection", blob.getSelection());
+    }
+
+    public void enableTfod() {
+        visionPortal.setProcessorEnabled(tfod, true);
+    }
+
+    public void disableTfod() {
+        visionPortal.setProcessorEnabled(tfod, false);
+    }
+
+    public void enableAprilTag() {
+        visionPortal.setProcessorEnabled(aprilTag, true);
+    }
+
+    public void disableAprilTag() {
+        visionPortal.setProcessorEnabled(aprilTag, false);
+    }
+
+    /**
+     * Stop the streaming session. This is an asynchronous call which does not take effect
+     * immediately. If you call {@link #resumeStreaming()} before the operation is complete,
+     * it will SYNCHRONOUSLY await completion of the stop command
+     *
+     * Stopping the streaming session is a good way to save computational resources if there may
+     * be long (e.g. 10+ second) periods of match play in which vision processing is not required.
+     * When streaming is stopped, no new image data is acquired from the camera and any attached
+     * {@link VisionProcessor}s will lie dormant until such time as {@link #resumeStreaming()} is called.
+     *
+     * Stopping and starting the stream can take a second or two, and thus is not advised for use
+     * cases where instantaneously enabling/disabling vision processing is required.
+     */
+    public void stopStreaming() {
+        visionPortal.stopStreaming();
+    }
+
+    /**
+     * Resume the streaming session if previously stopped by {@link #stopStreaming()}. This is
+     * an asynchronous call which does not take effect immediately. If you call {@link #stopStreaming()}
+     * before the operation is complete, it will SYNCHRONOUSLY await completion of the resume command.
+     *
+     * See notes about use case on {@link #stopStreaming()}
+     */
+    public void resumeStreaming() {
+        visionPortal.resumeStreaming();
+    }
+
     @Override
     public void periodic() {
         if (DriveConstants.DEBUG) {
             telemetryAprilTag();
             telemetryTfod();
+            telemetryBlob();
         }
     }
 
