@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.processors;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import org.firstinspires.ftc.robotcore.external.function.Consumer;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
@@ -12,7 +15,12 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-public class BlobProcessor implements VisionProcessor {
+
+import java.util.concurrent.atomic.AtomicReference;
+import org.firstinspires.ftc.robotcore.external.function.Continuation;
+
+
+public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 	public Rect rectLeft = new Rect(110, 42, 40, 40);
 	public Rect rectMiddle = new Rect(160, 42, 40, 40);
 	public Rect rectRight = new Rect(210, 42, 40, 40);
@@ -20,6 +28,14 @@ public class BlobProcessor implements VisionProcessor {
 
 	Mat submat = new Mat();
 	Mat hsvMat = new Mat();
+
+	private final AtomicReference<Bitmap> lastFrame =
+			new AtomicReference<>(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
+
+	@Override
+	public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
+		continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
+	}
 
 	@Override
 	public void init(int width, int height, CameraCalibration calibration) {
