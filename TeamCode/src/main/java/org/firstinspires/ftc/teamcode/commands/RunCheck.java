@@ -23,4 +23,8 @@ public class RunCheck extends CommandBase {
     public boolean isFinished() {
         return false;
     }
+
+    public void runWith() {
+        
+    }
 }

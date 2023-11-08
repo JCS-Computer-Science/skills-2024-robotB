@@ -31,6 +31,8 @@ public class VisionSubsystem extends SubsystemBase {
     private VisionPortal visionPortal;
     private TelemetrySubsystem telemetry;
 
+    public BlobProcessor.Selected DetectedBlob = BlobProcessor.Selected.NONE;
+
     public VisionSubsystem(@NonNull HardwareMap hardwareMap, TelemetrySubsystem telemetry) {
         aprilTag = AprilTagProcessor.easyCreateWithDefaults();
         tfod = TfodProcessor.easyCreateWithDefaults();
@@ -106,6 +108,14 @@ public class VisionSubsystem extends SubsystemBase {
         visionPortal.setProcessorEnabled(aprilTag, false);
     }
 
+    public void disableBlobs() {
+        visionPortal.setProcessorEnabled(blob, false);
+    }
+
+    public void enableBlobs() {
+        visionPortal.setProcessorEnabled(blob, true);
+    }
+
     /**
      * Stop the streaming session. This is an asynchronous call which does not take effect
      * immediately. If you call {@link #resumeStreaming()} before the operation is complete,
@@ -142,8 +152,15 @@ public class VisionSubsystem extends SubsystemBase {
             telemetryBlob();
         }
     }
-
-    public List<AprilTagDetection> getDetections() {
+    public List<AprilTagDetection> getAprilTags() {
         return aprilTag.getDetections();
+    }
+
+    public List<Recognition> getTfod() {
+        return tfod.getRecognitions();
+    }
+
+    public BlobProcessor.Selected getBlob() {
+        return blob.getSelection();
     }
 }

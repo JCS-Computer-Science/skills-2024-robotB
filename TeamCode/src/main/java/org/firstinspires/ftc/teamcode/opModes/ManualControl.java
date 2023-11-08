@@ -16,6 +16,6 @@ public class ManualControl extends TeleOpMode {
         visionSubsystem = new VisionSubsystem(hardwareMap, telemetrySubsystem);
         WinchSubsystem winchSubsystem = new WinchSubsystem(hardwareMap, telemetrySubsystem);
 
-        winchSubsystem.setDefaultCommand(new MoveWinchManual(winchSubsystem, toolOp));
+        winchSubsystem.setDefaultCommand(new MoveWinchManual(winchSubsystem, toolOp).andThen());
     }
 }
