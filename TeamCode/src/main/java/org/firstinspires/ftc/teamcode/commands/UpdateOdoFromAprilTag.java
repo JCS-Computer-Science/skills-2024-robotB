@@ -27,7 +27,7 @@ public class UpdateOdoFromAprilTag extends CommandBase {
 
 	@Override
 	public void execute() {
-		List<AprilTagDetection> currentDetections = v.getDetections();
+		List<AprilTagDetection> currentDetections = v.getAprilTags();
 
 		for (AprilTagDetection tag : currentDetections) {
 			Rotation2d yawRotation = Rotation2d.fromDegrees(tag.ftcPose.yaw);

@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.DriveConstants;
@@ -27,7 +28,6 @@ public class VisionSubsystem extends SubsystemBase {
     private AprilTagProcessor aprilTag;
     private TfodProcessor tfod;
     private BlobProcessor blob;
-    private CameraStreamProcessor stream;
     private VisionPortal visionPortal;
     private TelemetrySubsystem telemetry;
 
@@ -37,7 +37,7 @@ public class VisionSubsystem extends SubsystemBase {
         aprilTag = AprilTagProcessor.easyCreateWithDefaults();
         tfod = TfodProcessor.easyCreateWithDefaults();
         blob = new BlobProcessor();
-        stream = new CameraStreamProcessor();
+        CameraStreamProcessor stream = new CameraStreamProcessor();
         visionPortal = VisionPortal.easyCreateWithDefaults(
                 hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag, tfod, blob, stream);
         this.telemetry = telemetry;

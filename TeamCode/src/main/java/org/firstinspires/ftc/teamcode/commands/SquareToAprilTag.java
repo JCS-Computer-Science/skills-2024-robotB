@@ -48,7 +48,7 @@ public class SquareToAprilTag extends CommandBase {
 
 	@Override
 	public void execute() {
-		List<AprilTagDetection> currentDetections = v.getDetections();
+		List<AprilTagDetection> currentDetections = v.getAprilTags();
 
 		for (AprilTagDetection detection : currentDetections) {
 			// Look to see if we have size info on this tag.

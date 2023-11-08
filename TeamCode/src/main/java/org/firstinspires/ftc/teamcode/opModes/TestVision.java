@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opModes;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.SelectCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.BlobDetect;
@@ -18,6 +19,7 @@ public class TestVision extends AutoOpMode {
 	public void setup() {
 		VisionSubsystem v = new VisionSubsystem(hardwareMap, telemetrySubsystem);
 		schedule(
+			new SequentialCommandGroup(
 				new BlobDetect(v),
 				new SelectCommand(
 					// the first parameter is a map of commands
@@ -27,8 +29,9 @@ public class TestVision extends AutoOpMode {
 						put(BlobProcessor.Selected.RIGHT, new RunCheck("Right", telemetrySubsystem));
 					}},
 					// the selector
-					() -> v.DetectedBlob
+					v::getBlob
 				)
+			)
 		);
 	}
 }

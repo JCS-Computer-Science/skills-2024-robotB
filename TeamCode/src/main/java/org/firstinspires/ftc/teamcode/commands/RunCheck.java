@@ -16,15 +16,10 @@ public class RunCheck extends CommandBase {
     }
 
     public void execute() {
-        System.out.println(text);
         t.addLine(text);
     }
     @Override
     public boolean isFinished() {
         return false;
-    }
-
-    public void runWith() {
-        
     }
 }
