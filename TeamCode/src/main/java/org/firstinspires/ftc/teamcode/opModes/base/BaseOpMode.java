@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opModes.base;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.subsystems.DepositorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.GripperSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LauncherSubsystem;
@@ -29,6 +30,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 	protected GripperSubsystem gripperSubsystem, gripper;
 	protected LauncherSubsystem launcherSubsystem, launcher;
 	protected LiftSubsystem liftSubsystem, lift;
+	protected DepositorSubsystem depositerSubsystem, depositer;
 	protected HardwareMap hMap;
 	/**
 	 * This method is called when the opmode is initialized.
@@ -46,16 +48,21 @@ public abstract class BaseOpMode extends CommandOpMode {
 		liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
 		launcherSubsystem = new LauncherSubsystem(hMap, telemetrySubsystem);
 		gripperSubsystem = new GripperSubsystem(hMap, telemetrySubsystem);
+//		depositorSubsystem = new DepositorSubsystem(hMap);
 
 		odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
 		odometrySubsystem.resetEncoders();
 
+		// 	Aliases
 		d = driveSubsystem;
 		o = odometrySubsystem;
 		t = telemetrySubsystem;
 		gripper = gripperSubsystem;
 		launcher = launcherSubsystem;
 		lift = liftSubsystem;
+//		depositor = depositorSubsystem;
+
+		// Initializations
 		gripper.setGripper(0);
 
 		additionalConfig();

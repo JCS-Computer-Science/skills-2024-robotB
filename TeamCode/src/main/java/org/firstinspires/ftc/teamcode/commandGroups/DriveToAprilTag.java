@@ -19,7 +19,6 @@ public class DriveToAprilTag extends SequentialCommandGroup {
 				new DriveToPose(d,o,t, new Pose2d( ImportantPositions.AprilTags.get(tagID).getX()-20,ImportantPositions.AprilTags.get(tagID).getY(), new Rotation2d())),
 				new UpdateOdoFromAprilTag(o,v, tagID),
 				new DriveToPose(d,o,t, new Pose2d( ImportantPositions.AprilTags.get(tagID).getX()-10,ImportantPositions.AprilTags.get(tagID).getY(), new Rotation2d()))
-
 		);
 	}
 }
