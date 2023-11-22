@@ -44,8 +44,8 @@ public class TeleOpDrive extends CommandBase {
 	public void execute() {
 		driveSubsystem.driveRobotCentric(
 				-forward.getAsDouble(),
-				-strafe.getAsDouble(),
-				rotation.getAsDouble(),
+				strafe.getAsDouble(),
+				-rotation.getAsDouble(),
 				true
 		);
 

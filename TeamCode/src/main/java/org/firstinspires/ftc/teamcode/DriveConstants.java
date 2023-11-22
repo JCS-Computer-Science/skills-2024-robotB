@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.constants.TeleOpConstants;
+//import org.firstinspires.ftc.teamcode.constants.TeleOpConstants;
 
 @Config
 public class DriveConstants {
@@ -15,7 +15,7 @@ public class DriveConstants {
     public static double CENTER_WHEEL_OFFSET =-7; // inches
 //  End REV encoder
 
-    public static double TRACK_WIDTH = 15.5; // inches
+    public static double TRACK_WIDTH = 12; // inches
 
     public static double MAX_VELOCITY = 1.5;
     public static double MAX_ACCELERATION = 1.5;

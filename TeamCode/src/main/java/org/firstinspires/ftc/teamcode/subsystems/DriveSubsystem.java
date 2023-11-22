@@ -29,6 +29,11 @@ public class DriveSubsystem extends SubsystemBase {
         backLeft = new MotorEx(hardwareMap, "backLeft");
         backRight = new MotorEx(hardwareMap, "backRight");
 
+        frontLeft.setInverted(true);
+        frontRight.setInverted(true);
+        backLeft.setInverted(true);
+        backRight.setInverted(true);
+
         frontLeft.setFeedforwardCoefficients(MotorConstants.frontLeft.kS, MotorConstants.frontLeft.kV, MotorConstants.frontLeft.kA);
         frontRight.setFeedforwardCoefficients(MotorConstants.frontRight.kS, MotorConstants.frontRight.kV, MotorConstants.frontRight.kA);
         backLeft.setFeedforwardCoefficients(MotorConstants.backLeft.kS, MotorConstants.backLeft.kV, MotorConstants.backLeft.kA);
@@ -150,7 +155,7 @@ public class DriveSubsystem extends SubsystemBase {
         //        /___________/
 
         drive.driveRobotCentric(
-                strafeSpeed,
+                -strafeSpeed,
                 forwardSpeed,
                 -turnSpeed,
                 squareInputs
@@ -198,9 +203,9 @@ public class DriveSubsystem extends SubsystemBase {
         //        /__________ /
 
         drive.driveFieldCentric(
-                strafeSpeed,
+                -strafeSpeed,
                 forwardSpeed,
-                turnSpeed,
+                -turnSpeed,
                 heading,
                 squareInputs
         );

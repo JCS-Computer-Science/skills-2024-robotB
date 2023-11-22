@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.constants;
 import com.acmerobotics.dashboard.config.Config;
 
 public class MotorConstants {
+    public static double winch_diameter = 35.0;
+    public static double lift_diameter = 38.2;
     @Config
     public static class frontLeft {
         public static double kS = 0.0;
