@@ -48,7 +48,8 @@ public abstract class BaseOpMode extends CommandOpMode {
 		liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
 		launcherSubsystem = new LauncherSubsystem(hMap, telemetrySubsystem);
 		gripperSubsystem = new GripperSubsystem(hMap, telemetrySubsystem);
-//		depositorSubsystem = new DepositorSubsystem(hMap);
+
+		depositerSubsystem=new DepositorSubsystem(hMap);
 
 		odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
 		odometrySubsystem.resetEncoders();
@@ -60,7 +61,8 @@ public abstract class BaseOpMode extends CommandOpMode {
 		gripper = gripperSubsystem;
 		launcher = launcherSubsystem;
 		lift = liftSubsystem;
-//		depositor = depositorSubsystem;
+		depositer=depositerSubsystem;
+
 
 		// Initializations
 		gripper.setGripper(0);

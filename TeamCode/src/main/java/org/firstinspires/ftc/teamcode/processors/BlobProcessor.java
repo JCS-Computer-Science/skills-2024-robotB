@@ -22,9 +22,9 @@ import org.firstinspires.ftc.robotcore.external.function.Continuation;
 
 
 public class BlobProcessor implements VisionProcessor, CameraStreamSource {
-	public Rect rectLeft = new Rect(100, 240, 80, 80);
-	public Rect rectMiddle = new Rect(320, 240, 80, 80);
-	public Rect rectRight = new Rect(534, 240, 80, 80);
+	public Rect rectLeft = new Rect(50, 100, 100, 200);
+	public Rect rectMiddle = new Rect(320, 50, 200, 100);
+	public Rect rectRight = new Rect(590, 100, 100, 200);
 	Selected selection = Selected.NONE;
 
 	Mat submat = new Mat();
@@ -61,15 +61,17 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		rect.width = (int) (rect.width * calibration.getSize().getWidth() / width);
 		rect.height = (int) (rect.height * calibration.getSize().getHeight() / height);
 
+		// Offset the reference point to the center of the rectangle
+		rect.x -= rect.width / 2;
+		rect.y -= rect.height / 2;
+
 		// Make sure the rectangle is within the calibration size
 		rect.x = Math.max(0, Math.min(rect.x, (int) calibration.getSize().getWidth() - 1));
 		rect.y = Math.max(0, Math.min(rect.y, (int) calibration.getSize().getHeight() - 1));
 		rect.width = Math.max(1, Math.min(rect.width, (int) calibration.getSize().getWidth() - rect.x));
 		rect.height = Math.max(1, Math.min(rect.height, (int) calibration.getSize().getHeight() - rect.y));
 
-		// Offset the reference point to the center of the rectangle
-		rect.x -= rect.width / 2;
-		rect.y -= rect.height / 2;
+
 
 
 	}

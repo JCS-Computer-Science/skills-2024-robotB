@@ -2,18 +2,19 @@ package org.firstinspires.ftc.teamcode.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.subsystems.DepositorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.GripperSubsystem;
 
-public class GripperTiltToggle extends CommandBase {
-	private final GripperSubsystem subsystem;
-	public GripperTiltToggle(GripperSubsystem subsystem) {
+public class DepositorOpen extends CommandBase {
+	private final DepositorSubsystem subsystem;
+	public DepositorOpen(DepositorSubsystem subsystem) {
 		this.subsystem = subsystem;
-		//addRequirements(subsystem);
+		addRequirements(subsystem);
 	}
 
 	@Override
 	public void initialize() {
-		subsystem.toggleTilt();
+		subsystem.open();
 	}
 
 	@Override

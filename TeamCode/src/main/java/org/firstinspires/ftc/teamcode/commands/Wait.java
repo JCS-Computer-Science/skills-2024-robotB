@@ -5,18 +5,30 @@ import com.arcrobotics.ftclib.util.Timing;
 
 public class Wait extends CommandBase {
 	private Timing.Timer timer;
+	private long t;
 
 	/**
 	 * Waits for a specified amount of time
 	 * @param t the time to wait in seconds
 	 */
 	public Wait(Double t) {
-		timer = new Timing.Timer(t.longValue());
+
+
+		this.t=t.longValue();
+
 	}
 
 	@Override
 	public void initialize() {
-		timer.start();
+		timer = new Timing.Timer(t);
+
+	}
+
+	@Override
+	public void execute(){
+		if(!timer.isTimerOn()){
+			timer.start();
+		}
 	}
 
 	@Override

@@ -7,8 +7,15 @@ import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 
 public class BlobDetect extends CommandBase {
 	private VisionSubsystem v;
+	private boolean isDebug;
+
+	public BlobDetect(VisionSubsystem v, boolean debug) {
+		this.v = v;
+		this.isDebug=debug;
+	}
 	public BlobDetect(VisionSubsystem v) {
 		this.v = v;
+		this.isDebug=false;
 	}
 
 	@Override
@@ -18,7 +25,7 @@ public class BlobDetect extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		return v.DetectedBlob != BlobProcessor.Selected.NONE;
+		return !isDebug && v.DetectedBlob != BlobProcessor.Selected.NONE;
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class MoveLiftManual extends CommandBase {
 
 	@Override
 	public void execute() {
-		int targetTicks=new Double(liftSubsystem.liftMotor.getTargetPosition() + (toolOp.getLeftY() * 5)).intValue();
+		int targetTicks=new Double(liftSubsystem.liftMotor.getTargetPosition() + (toolOp.getLeftY() * 10)).intValue();
 		if(targetTicks< liftSubsystem.ticksFromInches(LiftSubsystem.LIFT_POSITIONS.TILT_SAFE.inches)){
 			gripperSubsystem.setGripperTilt(gripperSubsystem.tiltPositionDown);
 		}

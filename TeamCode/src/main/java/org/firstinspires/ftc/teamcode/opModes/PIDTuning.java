@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.DriveToPose;
 import org.firstinspires.ftc.teamcode.commands.HoldPose;
+import org.firstinspires.ftc.teamcode.commands.Wait;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
 
 @Autonomous(name = "PID Tuning", group = "Test")
@@ -16,12 +17,18 @@ public class PIDTuning extends AutoOpMode {
 	public void setup() {
 //		schedule(
 ////				new DriveToPose(d, o, t, new Pose2d(10, 0, Rotation2d.fromDegrees(0)))
-//		new HoldPose(d, o, t, new Pose2d(0, -10, Rotation2d.fromDegrees(0)))
+//		new HoldPose(d, o, t, new Pose2d(10, 0, Rotation2d.fromDegrees(0)))
 //		);
+
 		schedule(new SequentialCommandGroup(
-				new DriveToPose(d,o,t,new Pose2d(0,0,Rotation2d.fromDegrees(90))),
-				new DriveToPose(d,o,t,new Pose2d(0,10,Rotation2d.fromDegrees(90))),
-				new DriveToPose(d,o,t,new Pose2d(0,10,Rotation2d.fromDegrees(0))),
+				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
+				new Wait(1.0),
+				new DriveToPose(d,o,t,new Pose2d(10,5,Rotation2d.fromDegrees(0))),
+				new Wait(1.0),
+				new DriveToPose(d,o,t,new Pose2d(10,-5,Rotation2d.fromDegrees(0))),
+				new Wait(1.0),
+				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
+				new Wait(1.0),
 				new DriveToPose(d,o,t,new Pose2d(0,0,Rotation2d.fromDegrees(0)))
 		));
 	}

@@ -88,4 +88,9 @@ public class DriveToPose extends CommandBase {
     public boolean isFinished() {
         return xController.atSetPoint() && yController.atSetPoint() && thetaController.atSetPoint();
     }
+
+    @Override
+    public void end(boolean interrupted){
+        drive.driveRobotCentric(0.0,0.0,0.0);
+    }
 }

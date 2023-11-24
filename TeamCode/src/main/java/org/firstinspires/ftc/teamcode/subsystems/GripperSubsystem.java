@@ -11,38 +11,58 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 public class GripperSubsystem extends SubsystemBase {
 	private final TelemetrySubsystem t;
-	private ServoEx gripperTilt0, gripperTilt1, gripper, pusher;
+	private ServoEx gripperTilt0, gripperTilt1, gripper, pusher, setter;
 
-	public double tiltPositionDown = 0.2;
-	public double tiltPositionUp = 0.4;
+	public double tiltPositionDown = 0.6;
+	public double tiltPositionUp = 1.0;
+	public boolean isTilted=false;
+	public boolean isGripped=false;
 	private double grabberPosition = 1.0;
 	private double pusherPosition = 1.0;
 	public GripperSubsystem(@NonNull HardwareMap hardwareMap, TelemetrySubsystem t) {
 		this.t = t;
 
-		gripperTilt0 = new SimpleServo(hardwareMap, "gripperTilt0", 0, 180);
-		gripperTilt1 = new SimpleServo(hardwareMap, "gripperTilt1", 0, 180);
-		gripper = new SimpleServo(hardwareMap, "gripper", 0, 180);
+		gripperTilt0 = new SimpleServo(hardwareMap, "gripperTilt0", 40, 270);
+		gripperTilt1 = new SimpleServo(hardwareMap, "gripperTilt1", 40, 270);
+		gripper = new SimpleServo(hardwareMap, "gripper", 0, 40);
 		pusher = new SimpleServo(hardwareMap, "pusher", 0, 270);
+		setter = new SimpleServo(hardwareMap, "setter", 0, 180);
 
-		gripperTilt1.setInverted(true);
+
+		setter.setPosition(0);
+		gripper.setInverted(true);
+		gripper.setPosition(0);
+		gripperTilt0.setInverted(true);
 		pusher.setInverted(true);
 	}
 
-	public void toggleTilt() {
-		if (gripperTilt0.getPosition() == tiltPositionDown) {
-			setGripperTilt(tiltPositionUp);
+	public void toggleSetter(){
+		if (setter.getPosition() == 0) {
+			setter.setPosition(0.1);
 		} else {
-			setGripperTilt(tiltPositionDown);
+			setter.setPosition(0);
 		}
 	}
 
-	public void toggleGripper() {
-		if (gripper.getPosition() == 0.0) {
-			setGripper(1.0);
+	public void toggleTilt() {
+		if (isTilted) {
+			setGripperTilt(tiltPositionDown);
 		} else {
-			setGripper(0.0);
+			setGripperTilt(tiltPositionUp);
+
 		}
+		isTilted=!isTilted;
+	}
+
+	public void toggleGripper() {
+		if (isGripped) {
+//			setGripper(0.75);
+			gripper.setPosition(0);
+		} else {
+//			setGripper(1.0);
+			gripper.setPosition(1);
+		}
+		isGripped=!isGripped;
 	}
 
 	public void togglePusher() {
