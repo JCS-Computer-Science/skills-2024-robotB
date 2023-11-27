@@ -4,15 +4,11 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commandGroups.DriveByBlob;
-import org.firstinspires.ftc.teamcode.commands.DepositorClose;
-import org.firstinspires.ftc.teamcode.commands.DepositorOpen;
-import org.firstinspires.ftc.teamcode.commands.GripperGrabberToggle;
-import org.firstinspires.ftc.teamcode.commands.MoveLiftPreset;
-import org.firstinspires.ftc.teamcode.commands.TimedDrive;
-import org.firstinspires.ftc.teamcode.commands.Wait;
+import org.firstinspires.ftc.teamcode.commands.depositor.DepositorClose;
+import org.firstinspires.ftc.teamcode.commands.depositor.DepositorOpen;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperGrabberToggle;
+import org.firstinspires.ftc.teamcode.commands.util.Wait;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.DepositorSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 
 @Autonomous(name = "OnlyPropDrop", group = "Autonomous", preselectTeleOp = "Manual Control")

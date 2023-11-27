@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.opModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commandGroups.DriveByBlob;
-import org.firstinspires.ftc.teamcode.commands.BlobDetect;
+import org.firstinspires.ftc.teamcode.commands.vision.BlobDetect;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
-import org.firstinspires.ftc.teamcode.subsystems.DepositorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 
 @Autonomous(name = "Test Vision", group = "Test")

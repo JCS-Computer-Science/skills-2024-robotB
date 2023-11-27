@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.opModes.Auto;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.GripperGrabberToggle;
-import org.firstinspires.ftc.teamcode.commands.MoveLiftPreset;
-import org.firstinspires.ftc.teamcode.commands.TimedDrive;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperGrabberToggle;
+import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftPreset;
+import org.firstinspires.ftc.teamcode.commands.drive.TimedDrive;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 

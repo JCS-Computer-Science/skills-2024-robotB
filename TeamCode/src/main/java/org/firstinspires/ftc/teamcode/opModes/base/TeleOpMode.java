@@ -4,15 +4,15 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.teamcode.commands.GripperGrabberToggle;
-import org.firstinspires.ftc.teamcode.commands.GripperPusherToggle;
-import org.firstinspires.ftc.teamcode.commands.GripperTiltToggle;
-import org.firstinspires.ftc.teamcode.commands.LauncherServoToggle;
-import org.firstinspires.ftc.teamcode.commands.MoveLiftManual;
-import org.firstinspires.ftc.teamcode.commands.MoveLiftPreset;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperGrabberToggle;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperPusherToggle;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperTiltToggle;
+import org.firstinspires.ftc.teamcode.commands.launcher.LauncherServoToggle;
+import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftManual;
+import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftPreset;
 import org.firstinspires.ftc.teamcode.commands.SetterToggle;
-import org.firstinspires.ftc.teamcode.commands.TeleOpDrive;
-import org.firstinspires.ftc.teamcode.commands.ToggleMotors;
+import org.firstinspires.ftc.teamcode.commands.drive.TeleOpDrive;
+import org.firstinspires.ftc.teamcode.commands.launcher.ToggleLauncherMotors;
 import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 
 /**
@@ -56,7 +56,7 @@ public abstract class TeleOpMode extends BaseOpMode {
         GamepadButton toolY = new GamepadButton(toolOp, GamepadKeys.Button.Y);
         GamepadButton toolRBumper = new GamepadButton(toolOp, GamepadKeys.Button.RIGHT_BUMPER);
 
-        toolY.whenPressed(new ToggleMotors(launcherSubsystem));
+        toolY.whenPressed(new ToggleLauncherMotors(launcherSubsystem));
         toolRBumper.whenPressed(new LauncherServoToggle(launcherSubsystem));
 
 //       Gripper Subsystem Controls

@@ -6,12 +6,12 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commandGroups.DriveByBlob;
-import org.firstinspires.ftc.teamcode.commands.DepositorClose;
-import org.firstinspires.ftc.teamcode.commands.DepositorOpen;
-import org.firstinspires.ftc.teamcode.commands.DriveToPose;
-import org.firstinspires.ftc.teamcode.commands.GripperGrabberToggle;
-import org.firstinspires.ftc.teamcode.commands.MoveLiftPreset;
-import org.firstinspires.ftc.teamcode.commands.Wait;
+import org.firstinspires.ftc.teamcode.commands.depositor.DepositorClose;
+import org.firstinspires.ftc.teamcode.commands.depositor.DepositorOpen;
+import org.firstinspires.ftc.teamcode.commands.drive.DriveToPose;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperGrabberToggle;
+import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftPreset;
+import org.firstinspires.ftc.teamcode.commands.util.Wait;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
