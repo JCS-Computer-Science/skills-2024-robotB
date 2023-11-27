@@ -26,14 +26,14 @@ public class OnlyPropDrop extends AutoOpMode {
         liftSubsystem.resetEncoder();
         schedule(new SequentialCommandGroup(
                 new GripperGrabberToggle(gripperSubsystem),
-                new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem)),
+//                new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem),
                 new DriveByBlob(d,o,t, v, depositer),
                 new DepositorOpen(depositer),
                 new Wait(1.0),
                 new DepositorClose(depositer)
 
 //
-        );
+        ));
 //
     }
 }

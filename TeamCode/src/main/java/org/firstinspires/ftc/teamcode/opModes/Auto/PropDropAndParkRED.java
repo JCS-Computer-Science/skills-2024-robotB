@@ -27,15 +27,15 @@ public class PropDropAndParkRED extends AutoOpMode {
         liftSubsystem.resetEncoder();
         schedule(new SequentialCommandGroup(
                 new GripperGrabberToggle(gripperSubsystem),
-                new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem)),
+                new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem),
                 new DriveByBlob(d,o,t, v, depositer),
                 new DepositorOpen(depositer),
                 new Wait(1.0),
                 new DepositorClose(depositer),
-                new DriveToPose(d,o,t,new Pose2d(13.0,-24.0, Rotation2d.fromDegrees(0)))
+                new DriveToPose(d,o,t,new Pose2d(-13.0,24.0, Rotation2d.fromDegrees(0)))
 
 //
-        );
+        ));
 //
     }
 }

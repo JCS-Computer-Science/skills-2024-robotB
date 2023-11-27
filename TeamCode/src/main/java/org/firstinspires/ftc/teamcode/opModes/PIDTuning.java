@@ -15,21 +15,21 @@ public class PIDTuning extends AutoOpMode {
 
 	@Override
 	public void setup() {
-//		schedule(
-////				new DriveToPose(d, o, t, new Pose2d(10, 0, Rotation2d.fromDegrees(0)))
-//		new HoldPose(d, o, t, new Pose2d(10, 0, Rotation2d.fromDegrees(0)))
-//		);
+		schedule(
+//				new DriveToPose(d, o, t, new Pose2d(10, 0, Rotation2d.fromDegrees(0)))
+		new HoldPose(d, o, t, new Pose2d(-10, 0, Rotation2d.fromDegrees(0)))
+		);
 
-		schedule(new SequentialCommandGroup(
-				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
-				new Wait(1.0),
-				new DriveToPose(d,o,t,new Pose2d(10,5,Rotation2d.fromDegrees(0))),
-				new Wait(1.0),
-				new DriveToPose(d,o,t,new Pose2d(10,-5,Rotation2d.fromDegrees(0))),
-				new Wait(1.0),
-				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
-				new Wait(1.0),
-				new DriveToPose(d,o,t,new Pose2d(0,0,Rotation2d.fromDegrees(0)))
-		));
+//		schedule(new SequentialCommandGroup(
+//				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
+//				new Wait(1.0),
+//				new DriveToPose(d,o,t,new Pose2d(10,5,Rotation2d.fromDegrees(0))),
+//				new Wait(1.0),
+//				new DriveToPose(d,o,t,new Pose2d(10,-5,Rotation2d.fromDegrees(0))),
+//				new Wait(1.0),
+//				new DriveToPose(d,o,t,new Pose2d(10,0,Rotation2d.fromDegrees(0))),
+//				new Wait(1.0),
+//				new DriveToPose(d,o,t,new Pose2d(0,0,Rotation2d.fromDegrees(0)))
+//		));
 	}
 }

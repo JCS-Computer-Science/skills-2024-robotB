@@ -13,7 +13,7 @@ public class GripperSubsystem extends SubsystemBase {
 	private final TelemetrySubsystem t;
 	private ServoEx gripperTilt0, gripperTilt1, gripper, pusher, setter;
 
-	public double tiltPositionDown = 0.6;
+	public double tiltPositionDown = 0;
 	public double tiltPositionUp = 1.0;
 	public boolean isTilted=false;
 	public boolean isGripped=false;

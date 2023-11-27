@@ -15,12 +15,12 @@ import org.firstinspires.ftc.teamcode.util.Convert;
 
 public class LiftSubsystem extends SubsystemBase {
 	public enum LIFT_POSITIONS {
-		TOP(16),
+		TOP(20),
 		MIDDLE(10),
 		BOTTOM(1),
 		START(0),
 		TILT_SAFE(2),
-		HANG(13);
+		HANG(16);
 
 		public final int inches;
 

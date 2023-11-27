@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.DriveConstants;
 import org.firstinspires.ftc.teamcode.constants.AutoConstants;
@@ -20,6 +21,9 @@ public class DriveToPose extends CommandBase {
     private DriveSubsystem drive;
     private OdometrySubsystem odometry;
     private TelemetrySubsystem telemetry;
+    private boolean usingTimeout;
+    private Double t;
+    private Timing.Timer timer;
     private Pose2d destination;
 
     public DriveToPose(DriveSubsystem driveSubsystem, OdometrySubsystem odometrySubsystem, TelemetrySubsystem telemetrySubsystem, Pose2d destination) {
@@ -30,7 +34,14 @@ public class DriveToPose extends CommandBase {
         if (destination == null) destination = new Pose2d(0, 0, new Rotation2d(0));
         this.destination = destination;
 
+        this.usingTimeout=false;
+
         addRequirements(driveSubsystem);
+    }
+    public DriveToPose(DriveSubsystem driveSubsystem, OdometrySubsystem odometrySubsystem, TelemetrySubsystem telemetrySubsystem, Pose2d destination, Double timeout){
+        this(driveSubsystem,odometrySubsystem,telemetrySubsystem,destination);
+        this.usingTimeout=true;
+        this.t=timeout;
     }
 
     @Override
@@ -46,10 +57,17 @@ public class DriveToPose extends CommandBase {
         thetaController = new PIDFController(AutoConstants.thetaPID.kP, AutoConstants.thetaPID.kI, AutoConstants.thetaPID.kD, AutoConstants.thetaPID.kF);
         thetaController.setTolerance(AutoConstants.thetaPID.tolerance);
         thetaController.setSetPoint(destination.getHeading());
+
+        if(usingTimeout) {
+            timer = new Timing.Timer(this.t.longValue());
+        }
     }
 
     @Override
     public void execute() {
+        if(usingTimeout&&!timer.isTimerOn()){
+            timer.start();
+        }
         if (DriveConstants.DEBUG) {
             xController.setPIDF(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
             yController.setPIDF(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
@@ -86,7 +104,7 @@ public class DriveToPose extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return xController.atSetPoint() && yController.atSetPoint() && thetaController.atSetPoint();
+        return (xController.atSetPoint() && yController.atSetPoint() && thetaController.atSetPoint())||(usingTimeout&&timer.done());
     }
 
     @Override

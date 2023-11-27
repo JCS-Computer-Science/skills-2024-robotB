@@ -21,19 +21,19 @@ import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 import java.util.HashMap;
 
 public class DriveByBlob extends SequentialCommandGroup {
-	private double forwardTravel = 27.5;
-	private double sideOffset = 11.75;
-	private double frontOffset = 6;
+	private Double forwardTravel = -18.5;
+	private Double sideOffset = 10.5;
+	private Double frontOffset = -10.0;
 	public DriveByBlob(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, VisionSubsystem v, DepositorSubsystem ds) {
 		addCommands(
 				new BlobDetect(v),
-				new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0))),
+				new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0)), 3.0),
 				new Wait(1.0),
 				new SelectCommand(
 						new HashMap<Object, Command>() {{
-							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset, Rotation2d.fromDegrees(0))));
-							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0,Rotation2d.fromDegrees(0))));
-							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset,Rotation2d.fromDegrees(0))));
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset, Rotation2d.fromDegrees(0)),3.0));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0,Rotation2d.fromDegrees(0)),3.0));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset,Rotation2d.fromDegrees(0)),3.0));
 						}},
 						// the selector
 						v::getBlob

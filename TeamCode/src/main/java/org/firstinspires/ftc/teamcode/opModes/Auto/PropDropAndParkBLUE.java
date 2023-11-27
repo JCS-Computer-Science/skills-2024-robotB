@@ -32,7 +32,7 @@ public class PropDropAndParkBLUE extends AutoOpMode {
                 new DepositorOpen(depositer),
                 new Wait(1.0),
                 new DepositorClose(depositer),
-                new DriveToPose(d,o,t,new Pose2d(13.0,24.0, Rotation2d.fromDegrees(0)))
+                new DriveToPose(d,o,t,new Pose2d(-13.0,-24.0, Rotation2d.fromDegrees(0)))
 
 //
         );
