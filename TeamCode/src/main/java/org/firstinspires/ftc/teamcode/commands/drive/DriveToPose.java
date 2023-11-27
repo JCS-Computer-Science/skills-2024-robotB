@@ -12,10 +12,11 @@ import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.OdometrySubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.TelemetrySubsystem;
 import org.firstinspires.ftc.teamcode.util.Convert;
+import org.firstinspires.ftc.teamcode.util.PIDFControllerExt;
 
 public class DriveToPose extends CommandBase {
-    private PIDFController xController;
-    private PIDFController yController;
+    private PIDFControllerExt xController;
+    private PIDFControllerExt yController;
     private PIDFController thetaController;
 
     private DriveSubsystem drive;
@@ -46,11 +47,11 @@ public class DriveToPose extends CommandBase {
 
     @Override
     public void initialize() {
-        xController = new PIDFController(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
+        xController = new PIDFControllerExt(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
         xController.setTolerance(AutoConstants.xPID.tolerance);
         xController.setSetPoint(destination.getX());
 
-        yController = new PIDFController(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
+        yController = new PIDFControllerExt(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
         yController.setTolerance(AutoConstants.yPID.tolerance);
         yController.setSetPoint(destination.getY());
 
@@ -85,11 +86,16 @@ public class DriveToPose extends CommandBase {
         telemetry.addData("yErr", yController.getPositionError());
         telemetry.addData("thetaErr", Convert.radiansToDegrees(thetaController.getPositionError()));
 
-        drive.driveFieldCentric(
-                yController.calculate(odometry.getPose().getY()),
-                xController.calculate(odometry.getPose().getX()),
+        double xErr=destination.getX()-odometry.getPose().getX();
+        double yErr=destination.getY()-odometry.getPose().getY();
+
+        double robotXErr = Math.cos(odometry.getPose().getHeading())*xErr+Math.sin(odometry.getPose().getHeading())*yErr;
+        double robotYErr = -Math.sin(odometry.getPose().getHeading())*xErr+Math.cos(odometry.getPose().getHeading())*yErr;
+
+        drive.driveRobotCentric(
+                yController.calculate(robotYErr),
+                xController.calculate(robotXErr),
                 thetaController.calculate(odometry.getPose().getHeading()),
-                odometry.getPose().getHeading(),
                 true
         );
     }
