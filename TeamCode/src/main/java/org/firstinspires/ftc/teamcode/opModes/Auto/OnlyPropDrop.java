@@ -23,10 +23,10 @@ public class OnlyPropDrop extends AutoOpMode {
         schedule(new SequentialCommandGroup(
                 new GripperGrabberToggle(gripperSubsystem),
 //                new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem),
-                new DriveByBlob(d,o,t, v, depositer),
-                new DepositorOpen(depositer),
+                new DriveByBlob(d,o,t, v, depositor),
+                new DepositorOpen(depositor),
                 new Wait(1.0),
-                new DepositorClose(depositer)
+                new DepositorClose(depositor)
 
 //
         ));

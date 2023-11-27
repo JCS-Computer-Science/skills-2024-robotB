@@ -28,10 +28,10 @@ public class PropDropAndParkBLUE extends AutoOpMode {
         schedule(new SequentialCommandGroup(
                 new GripperGrabberToggle(gripperSubsystem),
                 new MoveLiftPreset(liftSubsystem,LiftSubsystem.LIFT_POSITIONS.TILT_SAFE, gripperSubsystem)),
-                new DriveByBlob(d,o,t, v, depositer),
-                new DepositorOpen(depositer),
+                new DriveByBlob(d,o,t, v, depositor),
+                new DepositorOpen(depositor),
                 new Wait(1.0),
-                new DepositorClose(depositer),
+                new DepositorClose(depositor),
                 new DriveToPose(d,o,t,new Pose2d(-13.0,-24.0, Rotation2d.fromDegrees(0)))
 
 //

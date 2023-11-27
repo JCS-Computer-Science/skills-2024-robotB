@@ -30,7 +30,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 	protected GripperSubsystem gripperSubsystem, gripper;
 	protected LauncherSubsystem launcherSubsystem, launcher;
 	protected LiftSubsystem liftSubsystem, lift;
-	protected DepositorSubsystem depositerSubsystem, depositer;
+	protected DepositorSubsystem depositorSubsystem, depositor;
 	protected HardwareMap hMap;
 	/**
 	 * This method is called when the opmode is initialized.
@@ -49,7 +49,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 		launcherSubsystem = new LauncherSubsystem(hMap, telemetrySubsystem);
 		gripperSubsystem = new GripperSubsystem(hMap, telemetrySubsystem);
 
-		depositerSubsystem=new DepositorSubsystem(hMap);
+		depositorSubsystem = new DepositorSubsystem(hMap);
 
 		odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
 		odometrySubsystem.resetEncoders();
@@ -61,7 +61,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 		gripper = gripperSubsystem;
 		launcher = launcherSubsystem;
 		lift = liftSubsystem;
-		depositer=depositerSubsystem;
+		depositor = depositorSubsystem;
 
 
 		// Initializations
