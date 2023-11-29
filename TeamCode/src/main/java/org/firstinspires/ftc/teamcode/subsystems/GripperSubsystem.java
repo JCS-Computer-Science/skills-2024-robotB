@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 public class GripperSubsystem extends SubsystemBase {
 	private final TelemetrySubsystem t;
-	private ServoEx gripperTilt0, gripperTilt1, gripper, pusher, setter;
+	private ServoEx gripperTilt0, gripperTilt1, gripper, pusher, setter, sweep;
 
 	public double tiltPositionDown = 0;
 	public double tiltPositionUp = 1.0;
@@ -28,6 +28,7 @@ public class GripperSubsystem extends SubsystemBase {
 		pusher = new SimpleServo(hardwareMap, "pusher", 0, 270);
 		setter = new SimpleServo(hardwareMap, "setter", 0, 180);
 
+		sweep = new SimpleServo(hardwareMap, "sweep", 0, 180);
 
 		setter.setPosition(0);
 		gripper.setInverted(true);
@@ -73,6 +74,14 @@ public class GripperSubsystem extends SubsystemBase {
 		}
 	}
 
+	public void toggleSweep() {
+		if (gripperTilt0.getPosition() == 0.0) {
+			setSweep(1.0);
+		} else {
+			setSweep(0.0);
+		}
+	}
+
 	public void setGripperTilt(double position) {
 		gripperTilt0.setPosition(position);
 		gripperTilt1.setPosition(position);
@@ -84,6 +93,10 @@ public class GripperSubsystem extends SubsystemBase {
 
 	public void setPusher(double position) {
 		pusher.setPosition(position);
+	}
+
+	public void setSweep(double position) {
+		sweep.setPosition(position);
 	}
 
 	@Override

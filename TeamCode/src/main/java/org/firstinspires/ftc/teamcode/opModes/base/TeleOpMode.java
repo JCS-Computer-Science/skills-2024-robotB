@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.commands.gripper.GripperGrabberToggle;
 import org.firstinspires.ftc.teamcode.commands.gripper.GripperPusherToggle;
+import org.firstinspires.ftc.teamcode.commands.gripper.GripperSweepToggle;
 import org.firstinspires.ftc.teamcode.commands.gripper.GripperTiltToggle;
 import org.firstinspires.ftc.teamcode.commands.launcher.LauncherServoToggle;
 import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftManual;
@@ -53,21 +54,23 @@ public abstract class TeleOpMode extends BaseOpMode {
         liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, toolOp, gripperSubsystem));
 
 //       Launcher Controls
-        GamepadButton toolY = new GamepadButton(toolOp, GamepadKeys.Button.Y);
+        GamepadButton toolSTART = new GamepadButton(toolOp, GamepadKeys.Button.START);
         GamepadButton toolRBumper = new GamepadButton(toolOp, GamepadKeys.Button.RIGHT_BUMPER);
 
-        toolY.whenPressed(new ToggleLauncherMotors(launcherSubsystem));
+        toolSTART.whenPressed(new ToggleLauncherMotors(launcherSubsystem));
         toolRBumper.whenPressed(new LauncherServoToggle(launcherSubsystem));
 
 //       Gripper Subsystem Controls
         GamepadButton toolA = new GamepadButton(toolOp, GamepadKeys.Button.A);
         GamepadButton toolB = new GamepadButton(toolOp, GamepadKeys.Button.B);
         GamepadButton toolX = new GamepadButton(toolOp, GamepadKeys.Button.X);
+        GamepadButton toolY = new GamepadButton(toolOp, GamepadKeys.Button.Y);
         GamepadButton toolLBumper = new GamepadButton(toolOp, GamepadKeys.Button.LEFT_BUMPER);
 
         toolA.whenPressed(new GripperGrabberToggle(gripperSubsystem));
         toolB.whenPressed(new GripperTiltToggle(gripperSubsystem));
         toolX.whenPressed(new GripperPusherToggle(gripperSubsystem));
+        toolY.whenPressed(new GripperSweepToggle(gripperSubsystem));
         toolLBumper.whenPressed(new SetterToggle(gripperSubsystem));
 
 
