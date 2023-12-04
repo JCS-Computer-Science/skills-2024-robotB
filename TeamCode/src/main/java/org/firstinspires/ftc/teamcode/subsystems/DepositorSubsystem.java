@@ -14,10 +14,10 @@ public class DepositorSubsystem extends SubsystemBase {
 	}
 
 	public void open() {
-		depositorServo.setPosition(1);
+		depositorServo.setPosition(0.8);
 	}
 
 	public void close() {
-		depositorServo.setPosition(0);
+		depositorServo.setPosition(0.2);
 	}
 }

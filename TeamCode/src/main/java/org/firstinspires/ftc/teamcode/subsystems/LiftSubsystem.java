@@ -22,9 +22,9 @@ public class LiftSubsystem extends SubsystemBase {
 		TILT_SAFE(2),
 		HANG(16);
 
-		public final int inches;
+		public final double inches;
 
-		LIFT_POSITIONS(int inches) {
+		LIFT_POSITIONS(double inches) {
 			this.inches = inches;
 		}
 	}
