@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.constants;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 
 public class AutoConstants {
     @Config
@@ -23,10 +24,10 @@ public class AutoConstants {
 
     @Config
     public static class thetaPID {
-        public static double kP = 4;
-        public static double kI = 0.0001;
+        public static double kP = 2.0;
+        public static double kI = 0.001;
         public static double kD = 0.02;
         public static double kF = 0.0;
-        public static double tolerance = 1.0;
+        public static double tolerance = Rotation2d.fromDegrees(1.0).getRadians();
     }
 }

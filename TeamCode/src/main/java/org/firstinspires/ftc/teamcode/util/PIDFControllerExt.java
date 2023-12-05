@@ -178,7 +178,7 @@ public class PIDFControllerExt {
 	/**
 	 * Calculates the control value, u(t).
 	 *
-	 * @param pv The current measurement of the process variable.
+	 * @param error The current measurement of the process variable.
 	 * @return the value produced by u(t).
 	 */
 	public double calculate(double error) {

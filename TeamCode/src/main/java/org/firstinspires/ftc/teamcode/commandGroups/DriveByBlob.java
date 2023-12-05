@@ -21,9 +21,9 @@ import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 import java.util.HashMap;
 
 public class DriveByBlob extends SequentialCommandGroup {
-	private Double forwardTravel = -18.5;
-	private Double sideOffset = 10.5;
-	private Double frontOffset = -10.0;
+	private Double forwardTravel = -26.5;
+	private Double sideOffset = 1.5;
+	private Double frontOffset = -2.0;
 	public DriveByBlob(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, VisionSubsystem v, DepositorSubsystem ds) {
 		addCommands(
 				new BlobDetect(v),
@@ -31,9 +31,18 @@ public class DriveByBlob extends SequentialCommandGroup {
 				new Wait(1.0),
 				new SelectCommand(
 						new HashMap<Object, Command>() {{
-							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset, Rotation2d.fromDegrees(0)),3.0));
-							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0,Rotation2d.fromDegrees(0)),3.0));
-							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset,Rotation2d.fromDegrees(0)),3.0));
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(90)),3.0));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0)),3.0));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(-90)),3.0));
+						}},
+						// the selector
+						v::getBlob
+				),
+				new SelectCommand(
+						new HashMap<Object, Command>() {{
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset, Rotation2d.fromDegrees(90)),3.0));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0, Rotation2d.fromDegrees(0)),3.0));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset, Rotation2d.fromDegrees(-90)),3.0));
 						}},
 						// the selector
 						v::getBlob

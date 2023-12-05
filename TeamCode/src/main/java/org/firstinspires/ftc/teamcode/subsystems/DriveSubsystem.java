@@ -51,6 +51,7 @@ public class DriveSubsystem extends SubsystemBase {
                 backLeft,
                 backRight
         );
+        drive.setMaxSpeed(0.8);
 
 //      PID Controllers
         xController = new PIDFController(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);

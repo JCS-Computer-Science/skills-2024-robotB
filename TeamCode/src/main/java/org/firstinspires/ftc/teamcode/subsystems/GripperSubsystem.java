@@ -75,10 +75,10 @@ public class GripperSubsystem extends SubsystemBase {
 	}
 
 	public void toggleSweep() {
-		if (gripperTilt0.getPosition() == 0.0) {
-			setSweep(1.0);
+		if (sweep.getPosition() == 0.0) {
+			sweep.setPosition(1.0);
 		} else {
-			setSweep(0.0);
+			sweep.setPosition(0.0);
 		}
 	}
 
@@ -95,9 +95,6 @@ public class GripperSubsystem extends SubsystemBase {
 		pusher.setPosition(position);
 	}
 
-	public void setSweep(double position) {
-		sweep.setPosition(position);
-	}
 
 	@Override
 	public void periodic() {
@@ -106,5 +103,6 @@ public class GripperSubsystem extends SubsystemBase {
 		t.addData("Gripper Tilt 1", gripperTilt1.getPosition());
 		t.addData("Gripper", gripper.getPosition());
 		t.addData("Pusher", pusher.getPosition());
+		t.addData("Sweep", sweep.getPosition());
 	}
 }

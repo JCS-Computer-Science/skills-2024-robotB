@@ -12,5 +12,6 @@ public abstract class AutoOpMode extends BaseOpMode {
     public void additionalConfig() {
 
         setup();
+
     }
 }
