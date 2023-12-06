@@ -10,8 +10,7 @@ public abstract class AutoOpMode extends BaseOpMode {
 
     @Override
     public void additionalConfig() {
-
+        driveSubsystem.drive.setMaxSpeed(0.5);
         setup();
-
     }
 }

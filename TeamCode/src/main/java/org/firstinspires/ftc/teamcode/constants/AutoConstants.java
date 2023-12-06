@@ -24,7 +24,7 @@ public class AutoConstants {
 
     @Config
     public static class thetaPID {
-        public static double kP = 2.0;
+        public static double kP = 3.5;
         public static double kI = 0.001;
         public static double kD = 0.02;
         public static double kF = 0.0;

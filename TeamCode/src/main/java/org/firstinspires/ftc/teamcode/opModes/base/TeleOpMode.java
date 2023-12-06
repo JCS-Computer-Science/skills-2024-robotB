@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opModes.base;
 
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftPreset;
 import org.firstinspires.ftc.teamcode.commands.SetterToggle;
 import org.firstinspires.ftc.teamcode.commands.drive.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.commands.launcher.ToggleLauncherMotors;
+import org.firstinspires.ftc.teamcode.commands.lift.SpeedLimit;
 import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 
 /**
@@ -41,6 +43,7 @@ public abstract class TeleOpMode extends BaseOpMode {
 
 //      Drive Subsystem Controls
         driveSubsystem.setDefaultCommand(new TeleOpDrive(driveSubsystem, driver::getLeftX, driver::getLeftY, driver::getRightX));
+        driveSubsystem.drive.setMaxSpeed(0.8);
 
 //      Lift Subsystem Controls
         GamepadButton toolUp = new GamepadButton(toolOp, GamepadKeys.Button.DPAD_UP);
@@ -52,6 +55,12 @@ public abstract class TeleOpMode extends BaseOpMode {
         toolDown.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.START, gripperSubsystem));
 
         liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, toolOp, gripperSubsystem));
+
+        // With speed limit
+//        liftSubsystem.setDefaultCommand(new ParallelCommandGroup(
+//                new MoveLiftManual(liftSubsystem, toolOp, gripperSubsystem),
+//                new SpeedLimit(driveSubsystem, liftSubsystem)
+//        ));
 
 //       Launcher Controls
         GamepadButton toolSTART = new GamepadButton(toolOp, GamepadKeys.Button.START);
@@ -72,7 +81,6 @@ public abstract class TeleOpMode extends BaseOpMode {
         toolX.whenPressed(new GripperPusherToggle(gripperSubsystem));
         toolY.whenPressed(new GripperSweepToggle(gripperSubsystem));
         toolLBumper.whenPressed(new SetterToggle(gripperSubsystem));
-
 
 //       Everything else
         setup();

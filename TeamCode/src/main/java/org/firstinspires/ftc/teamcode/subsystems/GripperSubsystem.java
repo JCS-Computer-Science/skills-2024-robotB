@@ -31,10 +31,14 @@ public class GripperSubsystem extends SubsystemBase {
 		sweep = new SimpleServo(hardwareMap, "sweep", 0, 180);
 
 		setter.setPosition(0);
+
 		gripper.setInverted(true);
-		gripper.setPosition(0);
+		gripper.setPosition(1.0);
+
 		gripperTilt0.setInverted(true);
+
 		pusher.setInverted(true);
+		pusher.setPosition(1.0);
 	}
 
 	public void toggleSetter(){

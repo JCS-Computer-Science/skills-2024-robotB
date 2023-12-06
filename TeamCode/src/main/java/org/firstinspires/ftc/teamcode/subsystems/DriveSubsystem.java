@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.constants.MotorConstants;
 
 public class DriveSubsystem extends SubsystemBase {
     private final MotorEx frontLeft, frontRight, backLeft, backRight;
-    private final MecanumDrive drive;
+    public final MecanumDrive drive;
     private final TelemetrySubsystem t;
 
     private final PIDFController xController;
@@ -51,7 +51,7 @@ public class DriveSubsystem extends SubsystemBase {
                 backLeft,
                 backRight
         );
-        drive.setMaxSpeed(0.8);
+
 
 //      PID Controllers
         xController = new PIDFController(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
