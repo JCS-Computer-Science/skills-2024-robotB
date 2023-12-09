@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opModes.base;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -54,6 +55,7 @@ public abstract class TeleOpMode extends BaseOpMode {
         toolMiddle.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.MIDDLE, gripperSubsystem));
         toolDown.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.START, gripperSubsystem));
 
+
         liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, toolOp, gripperSubsystem));
 
         // With speed limit
@@ -81,6 +83,7 @@ public abstract class TeleOpMode extends BaseOpMode {
         toolX.whenPressed(new GripperPusherToggle(gripperSubsystem));
         toolY.whenPressed(new GripperSweepToggle(gripperSubsystem));
         toolLBumper.whenPressed(new SetterToggle(gripperSubsystem));
+
 
 //       Everything else
         setup();
