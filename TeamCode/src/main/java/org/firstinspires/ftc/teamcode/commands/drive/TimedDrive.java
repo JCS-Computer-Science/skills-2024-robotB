@@ -11,12 +11,12 @@ import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
  * @see DriveSubsystem
  */
 public class TimedDrive extends CommandBase {
-	private  DriveSubsystem driveSubsystem;
-	private  Double forward;
-	private  Double strafe;
-	private  Double rotation;
+	private final DriveSubsystem driveSubsystem;
+	private final Double forward;
+	private final Double strafe;
+	private final Double rotation;
 	private Double t;
-	private Timing.Timer timer;
+	private final Timing.Timer timer;
 
 
 	/**

@@ -11,9 +11,9 @@ import com.arcrobotics.ftclib.geometry.Vector2d;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class TelemetrySubsystem extends SubsystemBase {
-	private MultipleTelemetry t;
-	private FtcDashboard dashboard;
-	private TelemetryPacket p;
+	private final MultipleTelemetry t;
+	private final FtcDashboard dashboard;
+	private final TelemetryPacket p;
 	public TelemetrySubsystem(Telemetry telemetry){
 		this.dashboard = FtcDashboard.getInstance();
 		this.p = new TelemetryPacket();
@@ -30,7 +30,6 @@ public class TelemetrySubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		t.addData("Team", "JCS-16871");
 		t.update();
 	}
 }

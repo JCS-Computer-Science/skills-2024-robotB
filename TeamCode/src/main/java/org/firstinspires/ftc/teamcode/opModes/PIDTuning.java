@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.opModes;
 
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.drive.DriveToPose;
 import org.firstinspires.ftc.teamcode.commands.drive.HoldPose;
-import org.firstinspires.ftc.teamcode.commands.util.Wait;
 import org.firstinspires.ftc.teamcode.opModes.base.AutoOpMode;
 
 @Autonomous(name = "PID Tuning", group = "Test")

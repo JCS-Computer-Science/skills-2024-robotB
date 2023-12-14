@@ -19,4 +19,13 @@ public class Convert {
 	public static double mmToInches(double mm) {
 		return mm * 0.0393701;
 	}
+	public static double inchesToMM(double inches) {
+		return inches * 25.4;
+	}
+	public static double metersToInches(double meters) {
+		return meters * 39.3701;
+	}
+	public static double inchesToFeet(double inches) {
+		return inches * 0.0833333;
+	}
 }

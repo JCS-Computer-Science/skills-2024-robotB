@@ -6,11 +6,12 @@ package org.firstinspires.ftc.teamcode.opModes.base;
  * @see BaseOpMode
  */
 public abstract class AutoOpMode extends BaseOpMode {
-    public abstract void setup();
-
     @Override
-    public void additionalConfig() {
+    public void initialize() {
+        super.initialize();
+
         driveSubsystem.drive.setMaxSpeed(0.5);
+
         setup();
     }
 }

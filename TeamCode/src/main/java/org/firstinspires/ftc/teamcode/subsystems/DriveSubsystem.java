@@ -3,23 +3,14 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import androidx.annotation.NonNull;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
-import com.arcrobotics.ftclib.geometry.Transform2d;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.teamcode.constants.AutoConstants;
-import org.firstinspires.ftc.teamcode.constants.MotorConstants;
 
 public class DriveSubsystem extends SubsystemBase {
     private final MotorEx frontLeft, frontRight, backLeft, backRight;
     public final MecanumDrive drive;
     private final TelemetrySubsystem t;
-
-    private final PIDFController xController;
-    private final PIDFController yController;
-    private final PIDFController thetaController;
 
     public DriveSubsystem(@NonNull HardwareMap hardwareMap, TelemetrySubsystem telemetrySubsystem) {
         this.t = telemetrySubsystem;
@@ -29,15 +20,9 @@ public class DriveSubsystem extends SubsystemBase {
         backLeft = new MotorEx(hardwareMap, "backLeft");
         backRight = new MotorEx(hardwareMap, "backRight");
 
-        frontLeft.setInverted(true);
-        frontRight.setInverted(true);
-        backLeft.setInverted(true);
-        backRight.setInverted(true);
-
-        frontLeft.setFeedforwardCoefficients(MotorConstants.frontLeft.kS, MotorConstants.frontLeft.kV, MotorConstants.frontLeft.kA);
-        frontRight.setFeedforwardCoefficients(MotorConstants.frontRight.kS, MotorConstants.frontRight.kV, MotorConstants.frontRight.kA);
-        backLeft.setFeedforwardCoefficients(MotorConstants.backLeft.kS, MotorConstants.backLeft.kV, MotorConstants.backLeft.kA);
-        backRight.setFeedforwardCoefficients(MotorConstants.backRight.kS, MotorConstants.backRight.kV, MotorConstants.backRight.kA);
+        for (MotorEx motor : new MotorEx[]{frontLeft, frontRight, backLeft, backRight}) {
+            motor.setInverted(true);
+        }
 
         frontLeft.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
@@ -51,84 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
                 backLeft,
                 backRight
         );
-
-
-//      PID Controllers
-        xController = new PIDFController(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
-        xController.setTolerance(AutoConstants.xPID.tolerance);
-
-        yController = new PIDFController(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
-        yController.setTolerance(AutoConstants.yPID.tolerance);
-
-        thetaController = new PIDFController(AutoConstants.thetaPID.kP, AutoConstants.thetaPID.kI, AutoConstants.thetaPID.kD, AutoConstants.thetaPID.kF);
-        thetaController.setTolerance(AutoConstants.thetaPID.tolerance);
     }
-
-    /**
-     * Set the targets in 3D space for the robot to move to.
-     * @param x the x coordinate of the target
-     * @param y the y coordinate of the target
-     * @param theta the angle of the target
-     */
-    public void setSetPoint(double x, double y, double theta) {
-        xController.setSetPoint(x);
-        yController.setSetPoint(y);
-        thetaController.setSetPoint(theta);
-    }
-
-    /**
-     * Set our target while maintaining our heading.
-     * @param x the x coordinate of the target
-     * @param y the y coordinate of the target
-     */
-    public void setSetPoint(double x, double y) {
-        setSetPoint(x, y, thetaController.getSetPoint());
-    }
-
-    /**
-     * Rotate to target Heading
-     * @param theta the angle of the target
-     */
-    public void setSetPoint(double theta) {
-        setSetPoint(xController.getSetPoint(), yController.getSetPoint(), theta);
-    }
-
-    /**
-     * Set our target from a Transform2d
-     * @param pose
-     */
-    public void setSetPoint(Transform2d pose) {
-        setSetPoint(pose.getTranslation().getX(), pose.getTranslation().getY(), pose.getRotation().getDegrees());
-    }
-
-    public void driveToSetPoint(OdometrySubsystem o) {
-
-        t.addData("xErr", xController.getPositionError());
-        t.addData("yErr", yController.getPositionError());
-        t.addData("thetaErr", thetaController.getPositionError());
-
-        driveFieldCentric(
-                yController.calculate(o.getPose().getY()),
-                xController.calculate(o.getPose().getX()),
-                thetaController.calculate(o.getPose().getHeading()),
-                o.getPose().getHeading(),
-                true
-        );
-    }
-
-    /**
-     * Update all PIDF controllers from the constants file.
-     * @see AutoConstants
-     */
-    public void updatePIDF() {
-        xController.setPIDF(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
-        yController.setPIDF(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
-        thetaController.setPIDF(AutoConstants.thetaPID.kP, AutoConstants.thetaPID.kI, AutoConstants.thetaPID.kD, AutoConstants.thetaPID.kF);
-        xController.setTolerance(AutoConstants.xPID.tolerance);
-        yController.setTolerance(AutoConstants.yPID.tolerance);
-        thetaController.setTolerance(AutoConstants.thetaPID.tolerance);
-    }
-
     /**
      * Drives the robot from the perspective of the robot itself rather than that
      * of the driver.

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands;
+package org.firstinspires.ftc.teamcode.commands.vision;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -11,9 +11,9 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import java.util.List;
 
 public class UpdateOdoFromAprilTag extends CommandBase {
-	private OdometrySubsystem o;
-	private VisionSubsystem v;
-	private int tagID;
+	private final OdometrySubsystem o;
+	private final VisionSubsystem v;
+	private final int tagID;
 	private Pose2d tagPose;
 	private boolean isFound;
 	private int count = 0;
@@ -54,7 +54,7 @@ public class UpdateOdoFromAprilTag extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		if (!interrupted) {
-//			o.updatePoseFromAprilTag(tagPose, tagID);
+			o.updatePoseFromAprilTag(tagPose, tagID);
 		}
 	}
 }
