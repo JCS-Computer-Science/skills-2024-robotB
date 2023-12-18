@@ -43,7 +43,7 @@ public class DriveToPose extends CommandBase {
     }
 
     /**
-     * Drive to a pose with the same x and y, but a different heading
+     * Turn to a heading
      * @param d {@link DriveSubsystem}
      * @param o {@link OdometrySubsystem}
      * @param t {@link TelemetrySubsystem}
@@ -51,18 +51,6 @@ public class DriveToPose extends CommandBase {
      */
     public DriveToPose(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, Rotation2d rot) {
         this(d,o,t, new Pose2d(o.getPose().getX(), o.getPose().getY(), rot));
-    }
-
-    /**
-     * @param d {@link DriveSubsystem}
-     * @param o {@link OdometrySubsystem}
-     * @param t {@link TelemetrySubsystem}
-     * @param x x coordinate
-     * @param y y coordinate
-     * @param heading heading
-     */
-    public DriveToPose(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, double x, double y, double heading) {
-        this(d,o,t, new Pose2d(x,y,Rotation2d.fromDegrees(heading)));
     }
 
     /**
