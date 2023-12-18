@@ -27,37 +27,37 @@ public class DriveByBlob extends SequentialCommandGroup {
 		addCommands(
 				new BlobDetect(v),
 				new ParallelCommandGroup(
-					new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0)), 3.0)
+					new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0))).withTimeout(3000)
 				),
 				new WaitCommand(1000),
 				new SelectCommand(
 						new HashMap<Object, Command>() {{
-							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(90)),3.0));
-							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0)),3.0));
-							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(-90)),3.0));
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(90))));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0))));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(-90))));
 						}},
 						// the selector
 						v::getBlob
-				),
+				).withTimeout(3000),
 				new SelectCommand(
 						new HashMap<Object, Command>() {{
-							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset, Rotation2d.fromDegrees(90)),3.0));
-							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0, Rotation2d.fromDegrees(0)),3.0));
-							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset, Rotation2d.fromDegrees(-90)),3.0));
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,-sideOffset, Rotation2d.fromDegrees(90))));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel+frontOffset,0, Rotation2d.fromDegrees(0))));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,sideOffset, Rotation2d.fromDegrees(-90))));
 						}},
 						// the selector
 						v::getBlob
-				),
+				).withTimeout(3000),
 				new WaitCommand(1000),
 				new SelectCommand(
 						new HashMap<Object, Command>() {{
-							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(90)),3.0));
-							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0)),3.0));
-							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(-90)),3.0));
+							put(BlobProcessor.Selected.LEFT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(90))));
+							put(BlobProcessor.Selected.MIDDLE, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(0))));
+							put(BlobProcessor.Selected.RIGHT, new DriveToPose(d, o, t, new Pose2d(forwardTravel,0, Rotation2d.fromDegrees(-90))));
 						}},
 						// the selector
 						v::getBlob
-				)
+				).withTimeout(3000)
 		);
 	}
 }

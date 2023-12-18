@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands.drive;
 
+import androidx.annotation.NonNull;
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -19,30 +21,58 @@ public class DriveToPose extends CommandBase {
     private PIDFControllerExt yController;
     private PIDFController thetaController;
 
-    private DriveSubsystem drive;
-    private OdometrySubsystem odometry;
-    private TelemetrySubsystem telemetry;
-    private boolean usingTimeout;
-    private Double t;
-    private Timing.Timer timer;
+    private final DriveSubsystem drive;
+    private final OdometrySubsystem odometry;
+    private final TelemetrySubsystem telemetry;
     private Pose2d destination;
 
-    public DriveToPose(DriveSubsystem driveSubsystem, OdometrySubsystem odometrySubsystem, TelemetrySubsystem telemetrySubsystem, Pose2d destination) {
-        this.drive = driveSubsystem;
-        this.odometry = odometrySubsystem;
-        this.telemetry = telemetrySubsystem;
+    /**
+     * Drive to a pose
+     * @param d {@link DriveSubsystem}
+     * @param o {@link OdometrySubsystem}
+     * @param t {@link TelemetrySubsystem}
+     * @param p {@link Pose2d}
+     */
+    public DriveToPose(@NonNull  DriveSubsystem d, @NonNull OdometrySubsystem o, @NonNull TelemetrySubsystem t, @NonNull Pose2d p) {
+        drive = d;
+        odometry = o;
+        telemetry = t;
+        destination = p;
 
-        if (destination == null) destination = new Pose2d(0, 0, new Rotation2d(0));
-        this.destination = destination;
-
-        this.usingTimeout=false;
-
-        addRequirements(driveSubsystem);
+        addRequirements(d);
     }
-    public DriveToPose(DriveSubsystem driveSubsystem, OdometrySubsystem odometrySubsystem, TelemetrySubsystem telemetrySubsystem, Pose2d destination, Double timeout){
-        this(driveSubsystem,odometrySubsystem,telemetrySubsystem,destination);
-        this.usingTimeout=true;
-        this.t=timeout;
+
+    /**
+     * Drive to a pose with the same x and y, but a different heading
+     * @param d {@link DriveSubsystem}
+     * @param o {@link OdometrySubsystem}
+     * @param t {@link TelemetrySubsystem}
+     * @param rot {@link Rotation2d}
+     */
+    public DriveToPose(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, Rotation2d rot) {
+        this(d,o,t, new Pose2d(o.getPose().getX(), o.getPose().getY(), rot));
+    }
+
+    /**
+     * @param d {@link DriveSubsystem}
+     * @param o {@link OdometrySubsystem}
+     * @param t {@link TelemetrySubsystem}
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param heading heading
+     */
+    public DriveToPose(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t, double x, double y, double heading) {
+        this(d,o,t, new Pose2d(x,y,Rotation2d.fromDegrees(heading)));
+    }
+
+    /**
+     * Maintain current pose
+     * @param d {@link DriveSubsystem}
+     * @param o {@link OdometrySubsystem}
+     * @param t {@link TelemetrySubsystem}
+     */
+    public DriveToPose(DriveSubsystem d, OdometrySubsystem o, TelemetrySubsystem t) {
+        this(d,o,t, new Pose2d(o.getPose().getX(),o.getPose().getY(),o.getPose().getRotation()));
     }
 
     @Override
@@ -58,17 +88,10 @@ public class DriveToPose extends CommandBase {
         thetaController = new PIDFController(AutoConstants.thetaPID.kP, AutoConstants.thetaPID.kI, AutoConstants.thetaPID.kD, AutoConstants.thetaPID.kF);
         thetaController.setTolerance(AutoConstants.thetaPID.tolerance);
         thetaController.setSetPoint(destination.getHeading());
-
-        if(usingTimeout) {
-            timer = new Timing.Timer(this.t.longValue());
-        }
     }
 
     @Override
     public void execute() {
-        if(usingTimeout&&!timer.isTimerOn()){
-            timer.start();
-        }
         if (DriveConstants.DEBUG) {
             xController.setPIDF(AutoConstants.xPID.kP, AutoConstants.xPID.kI, AutoConstants.xPID.kD, AutoConstants.xPID.kF);
             yController.setPIDF(AutoConstants.yPID.kP, AutoConstants.yPID.kI, AutoConstants.yPID.kD, AutoConstants.yPID.kF);
@@ -110,7 +133,7 @@ public class DriveToPose extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (xController.atSetPoint() && yController.atSetPoint() && thetaController.atSetPoint())||(usingTimeout&&timer.done());
+        return (xController.atSetPoint() && yController.atSetPoint() && thetaController.atSetPoint());
     }
 
     @Override
