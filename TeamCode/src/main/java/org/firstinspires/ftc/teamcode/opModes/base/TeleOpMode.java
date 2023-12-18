@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 public abstract class TeleOpMode extends BaseOpMode {
 
     protected GamepadEx driver;
-    protected GamepadEx toolOp;
+    protected GamepadEx toolOp;`
 
     @Override
     public void initialize() {
