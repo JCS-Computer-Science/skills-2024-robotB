@@ -21,10 +21,10 @@ public class TimedDrive extends CommandBase {
 
 	/**
 	 * Drive the robot using the left joystick for translation and the right joystick for rotation.
-	 * @param driveSubsystem
-	 * @param forward
-	 * @param strafe
-	 * @param rotation
+	 * @param driveSubsystem The drive subsystem to use.
+	 * @param forward The forward translation.
+	 * @param strafe The strafe translation.
+	 * @param rotation The rotation.
 	 * @see DriveSubsystem
 	 *
 	 * @author Eric Singer
@@ -47,7 +47,6 @@ public class TimedDrive extends CommandBase {
 		driveSubsystem.driveRobotCentric(
 				strafe,
 				forward,
-
 				rotation,
 				true
 		);

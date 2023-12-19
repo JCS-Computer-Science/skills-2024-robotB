@@ -7,11 +7,22 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TelemetrySubsystem extends SubsystemBase {
 	public final MultipleTelemetry t;
 	public TelemetrySubsystem(Telemetry telemetry){
 		FtcDashboard dashboard = FtcDashboard.getInstance();
 		this.t = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+	}
+
+	public Telemetry.Line addLine(String s) {
+		return t.addLine(s);
+	}
+
+	public boolean removeLine(Telemetry.Line line) {
+		return t.removeLine(line);
 	}
 
 	public Telemetry.Item addData(String s, String s1, Object... objects) {

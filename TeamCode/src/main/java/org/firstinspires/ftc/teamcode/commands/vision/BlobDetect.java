@@ -14,8 +14,7 @@ public class BlobDetect extends CommandBase {
 		this.isDebug = debug;
 	}
 	public BlobDetect(VisionSubsystem v) {
-		this.v = v;
-		this.isDebug=false;
+		this(v, false);
 	}
 
 	@Override
