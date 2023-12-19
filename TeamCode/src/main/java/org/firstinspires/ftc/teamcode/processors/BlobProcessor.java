@@ -128,37 +128,37 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		android.graphics.Rect drawRectangleRight = makeGraphicsRect(rectRight, scaleBmpPxToCanvasPx);
 
 		selection = (Selected) userContext;
-		Boolean[] rects = {false, false, false};
+		Boolean[] boxes = new Boolean[3];
 		switch (selection) {
 			case LEFT:
-				rects[0] = true;
+				boxes[0] = true;
 //				canvas.drawRect(drawRectangleLeft, selectedPaint);
 //				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case MIDDLE:
-				rects[1] = true;
+				boxes[1] = true;
 //				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleMiddle, selectedPaint);
 //				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case RIGHT:
-				rects[2] = true;
+				boxes[2] = true;
 //				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleRight, selectedPaint);
 				break;
 			case NONE:
-				Arrays.fill(rects, false);
+				Arrays.fill(boxes, false);
 //				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
 //				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 		}
 
-		canvas.drawRect(drawRectangleLeft, rects[0] ? selectedPaint : nonSelectedPaint);
-		canvas.drawRect(drawRectangleMiddle, rects[1] ? selectedPaint : nonSelectedPaint);
-		canvas.drawRect(drawRectangleRight, rects[2] ? selectedPaint : nonSelectedPaint);
+		canvas.drawRect(drawRectangleLeft, boxes[0] ? selectedPaint : nonSelectedPaint);
+		canvas.drawRect(drawRectangleMiddle, boxes[1] ? selectedPaint : nonSelectedPaint);
+		canvas.drawRect(drawRectangleRight, boxes[2] ? selectedPaint : nonSelectedPaint);
 	}
 
 	public Selected getSelection() {
