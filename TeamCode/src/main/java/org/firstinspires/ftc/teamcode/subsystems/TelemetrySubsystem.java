@@ -1,18 +1,11 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.geometry.Pose2d;
-import com.arcrobotics.ftclib.geometry.Vector2d;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TelemetrySubsystem extends SubsystemBase {
 	public final MultipleTelemetry t;
@@ -48,6 +41,27 @@ public class TelemetrySubsystem extends SubsystemBase {
 
 	public boolean removeAction(Object o) {
 		return t.removeAction(o);
+	}
+
+
+	public String getItemSeparator() {
+		return t.getItemSeparator();
+	}
+
+	public void setItemSeparator(String s) {
+		t.setItemSeparator(s);
+	}
+
+	public String getCaptionValueSeparator() {
+		return t.getCaptionValueSeparator();
+	}
+
+	public void setCaptionValueSeparator(String s) {
+		t.setCaptionValueSeparator(s);
+	}
+
+	public void setDisplayFormat(Telemetry.DisplayFormat displayFormat) {
+		t.setDisplayFormat(displayFormat);
 	}
 
 	@Override
