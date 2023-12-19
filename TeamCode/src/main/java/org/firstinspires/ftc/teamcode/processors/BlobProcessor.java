@@ -132,28 +132,15 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		switch (selection) {
 			case LEFT:
 				boxes[0] = true;
-//				canvas.drawRect(drawRectangleLeft, selectedPaint);
-//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case MIDDLE:
 				boxes[1] = true;
-//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleMiddle, selectedPaint);
-//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case RIGHT:
 				boxes[2] = true;
-//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleRight, selectedPaint);
 				break;
-			case NONE:
+			default:
 				Arrays.fill(boxes, false);
-//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
-				break;
 		}
 
 		canvas.drawRect(drawRectangleLeft, boxes[0] ? selectedPaint : nonSelectedPaint);
