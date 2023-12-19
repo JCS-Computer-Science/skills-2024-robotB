@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opModes.base;
 
+import com.arcrobotics.ftclib.command.FunctionalCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -18,7 +19,7 @@ import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
 public abstract class TeleOpMode extends BaseOpMode {
 
     protected GamepadEx driver;
-    protected GamepadEx toolOp;`
+    protected GamepadEx toolOp;
 
     @Override
     public void initialize() {
@@ -28,7 +29,20 @@ public abstract class TeleOpMode extends BaseOpMode {
         toolOp = new GamepadEx(gamepad2);
 
 //      Drive Subsystem Controls
-        driveSubsystem.setDefaultCommand(new TeleOpDrive(driveSubsystem, driver::getLeftX, driver::getLeftY, driver::getRightX));
+        driveSubsystem.setDefaultCommand(
+            new FunctionalCommand(
+                null,
+                () -> driveSubsystem.driveRobotCentric(
+                    -driver.getLeftY(),
+                    driver.getLeftX(),
+                    -driver.getRightX(),
+                    true
+                ),
+                null,
+                null,
+                driveSubsystem
+            )
+        );
         driveSubsystem.drive.setMaxSpeed(0.8);
 
 //      Lift Subsystem Controls
