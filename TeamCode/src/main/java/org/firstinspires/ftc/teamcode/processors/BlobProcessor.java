@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.robotcore.external.function.Consumer;
+import org.firstinspires.ftc.robotcore.external.function.Continuation;
 import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
@@ -18,10 +19,8 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
-import org.firstinspires.ftc.robotcore.external.function.Continuation;
 
 
 public class BlobProcessor implements VisionProcessor, CameraStreamSource {
