@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.robotcore.external.function.Consumer;
 import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
@@ -17,6 +19,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import org.firstinspires.ftc.robotcore.external.function.Continuation;
 
@@ -34,7 +37,7 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 			new AtomicReference<>(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
 
 	@Override
-	public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
+	public void getFrameBitmap(@NonNull Continuation<? extends Consumer<Bitmap>> continuation) {
 		continuation.dispatch(bitmapConsumer -> bitmapConsumer.accept(lastFrame.get()));
 	}
 
@@ -53,7 +56,7 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 	 * @param calibration Camera calibration
 	 * @param rect Rectangle to convert
 	 */
-	private void convertRect(int width, int height, CameraCalibration calibration, Rect rect) {
+	private void convertRect(int width, int height, @NonNull CameraCalibration calibration, @NonNull Rect rect) {
 
 		// Adjust the rectangle to the calibration size
 		rect.x = (int) (rect.x * calibration.getSize().getWidth() / width);
@@ -70,17 +73,12 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		rect.y = Math.max(0, Math.min(rect.y, (int) calibration.getSize().getHeight() - 1));
 		rect.width = Math.max(1, Math.min(rect.width, (int) calibration.getSize().getWidth() - rect.x));
 		rect.height = Math.max(1, Math.min(rect.height, (int) calibration.getSize().getHeight() - rect.y));
-
-
-
-
 	}
 
 	@Override
 	public Object processFrame(Mat frame, long captureTimeNanos) {
 		Bitmap b = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.RGB_565);
 		Utils.matToBitmap(frame, b);
-		lastFrame.set(b);
 
 		Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
 
@@ -88,12 +86,16 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		double satRectMiddle = getAvgSaturation(hsvMat, rectMiddle);
 		double satRectRight = getAvgSaturation(hsvMat, rectRight);
 
+		lastFrame.set(b);
+
 		if ((satRectLeft > satRectMiddle) && (satRectLeft > satRectRight)) {
 			return Selected.LEFT;
 		} else if ((satRectMiddle > satRectLeft) && (satRectMiddle > satRectRight)) {
 			return Selected.MIDDLE;
 		}
 		return Selected.RIGHT;
+
+
 	}
 
 	protected double getAvgSaturation(Mat input, Rect rect) {
@@ -126,28 +128,37 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 		android.graphics.Rect drawRectangleRight = makeGraphicsRect(rectRight, scaleBmpPxToCanvasPx);
 
 		selection = (Selected) userContext;
+		Boolean[] rects = {false, false, false};
 		switch (selection) {
 			case LEFT:
-				canvas.drawRect(drawRectangleLeft, selectedPaint);
-				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
+				rects[0] = true;
+//				canvas.drawRect(drawRectangleLeft, selectedPaint);
+//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case MIDDLE:
-				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-				canvas.drawRect(drawRectangleMiddle, selectedPaint);
-				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
+				rects[1] = true;
+//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleMiddle, selectedPaint);
+//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 			case RIGHT:
-				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-				canvas.drawRect(drawRectangleRight, selectedPaint);
+				rects[2] = true;
+//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleRight, selectedPaint);
 				break;
 			case NONE:
-				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
-				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
-				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
+				Arrays.fill(rects, false);
+//				canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
+//				canvas.drawRect(drawRectangleRight, nonSelectedPaint);
 				break;
 		}
+
+		canvas.drawRect(drawRectangleLeft, rects[0] ? selectedPaint : nonSelectedPaint);
+		canvas.drawRect(drawRectangleMiddle, rects[1] ? selectedPaint : nonSelectedPaint);
+		canvas.drawRect(drawRectangleRight, rects[2] ? selectedPaint : nonSelectedPaint);
 	}
 
 	public Selected getSelection() {
