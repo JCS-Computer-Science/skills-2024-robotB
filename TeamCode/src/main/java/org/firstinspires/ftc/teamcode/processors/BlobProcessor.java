@@ -57,7 +57,6 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 	 * @param rect Rectangle to convert
 	 */
 	private void convertRect(int width, int height, @NonNull CameraCalibration calibration, @NonNull Rect rect) {
-
 		// Adjust the rectangle to the calibration size
 		rect.x = (int) (rect.x * calibration.getSize().getWidth() / width);
 		rect.y = (int) (rect.y * calibration.getSize().getHeight() / height);
@@ -94,8 +93,6 @@ public class BlobProcessor implements VisionProcessor, CameraStreamSource {
 			return Selected.MIDDLE;
 		}
 		return Selected.RIGHT;
-
-
 	}
 
 	protected double getAvgSaturation(Mat input, Rect rect) {
