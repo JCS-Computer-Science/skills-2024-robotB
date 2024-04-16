@@ -2,39 +2,37 @@ package org.firstinspires.ftc.teamcode.commands.drive;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.OdometrySubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.TelemetrySubsystem;
+
+import org.firstinspires.ftc.teamcode.subsystems.TankDriveSubsystem;
 
 import java.util.function.DoubleSupplier;
 
 /**
  * Drive the robot using the left joystick for translation and the right joystick for rotation.
  *
- * @see DriveSubsystem
+
  */
 public class TeleOpDrive extends CommandBase {
-	private final DriveSubsystem driveSubsystem;
+	private final TankDriveSubsystem driveSubsystem;
 	private final DoubleSupplier forward;
-	private final DoubleSupplier strafe;
-	private final DoubleSupplier rotation;
 
+	private final DoubleSupplier rotation;
 
 	/**
 	 * Drive the robot using the left joystick for translation and the right joystick for rotation.
 	 * @param driveSubsystem
 	 * @param forward
-	 * @param strafe
+
 	 * @param rotation
-	 * @see DriveSubsystem
+
 	 *
 	 * @author Eric Singer
 	 */
-	public TeleOpDrive(DriveSubsystem driveSubsystem, DoubleSupplier forward, DoubleSupplier strafe, DoubleSupplier rotation) {
+	public TeleOpDrive(TankDriveSubsystem driveSubsystem, DoubleSupplier forward, DoubleSupplier rotation) {
 		this.driveSubsystem = driveSubsystem;
 
 		this.forward = forward;
-		this.strafe = strafe;
+
 		this.rotation = rotation;
 
 		addRequirements(driveSubsystem);
@@ -42,11 +40,9 @@ public class TeleOpDrive extends CommandBase {
 
 	@Override
 	public void execute() {
-		driveSubsystem.driveRobotCentric(
-				-forward.getAsDouble(),
-				strafe.getAsDouble(),
-				-rotation.getAsDouble(),
-				true
+		driveSubsystem.driveArcade(
+				-forward.getAsDouble(), -rotation.getAsDouble()
+
 		);
 
 	}

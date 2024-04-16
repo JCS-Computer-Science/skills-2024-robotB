@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.opModes.base;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LiftSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.OdometrySubsystem;
+
+import org.firstinspires.ftc.teamcode.subsystems.TankDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.TelemetrySubsystem;
 
 /**
@@ -13,16 +13,16 @@ import org.firstinspires.ftc.teamcode.subsystems.TelemetrySubsystem;
  *
  * @author Eric Singer
  *
- * @see DriveSubsystem
- * @see OdometrySubsystem
+
  * @see TelemetrySubsystem
  * @see LiftSubsystem
  */
 public abstract class BaseOpMode extends CommandOpMode {
-	protected DriveSubsystem driveSubsystem, d;
-	protected OdometrySubsystem odometrySubsystem, o;
+	protected TankDriveSubsystem driveSubsystem, d;
+
+	//protected OdometrySubsystem odometrySubsystem, o;
 	protected TelemetrySubsystem telemetrySubsystem, t;
-	protected LiftSubsystem liftSubsystem, lift;
+	//protected LiftSubsystem liftSubsystem, lift;
 	protected HardwareMap hMap;
 
 	public abstract void setup();
@@ -33,17 +33,17 @@ public abstract class BaseOpMode extends CommandOpMode {
 
 		//      Subsystems
 		telemetrySubsystem = new TelemetrySubsystem(telemetry);
-		driveSubsystem = new DriveSubsystem(hMap, telemetrySubsystem);
+		driveSubsystem = new TankDriveSubsystem(hMap, telemetrySubsystem);
 
-		liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
+		//liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
 
-		odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
-		odometrySubsystem.resetEncoders();
+		//odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
+		//odometrySubsystem.resetEncoders();
 
 		// 	Aliases
 		d = driveSubsystem;
-		o = odometrySubsystem;
+		//o = odometrySubsystem;
 		t = telemetrySubsystem;
-		lift = liftSubsystem;
+		//lift = liftSubsystem;
 	}
 }
