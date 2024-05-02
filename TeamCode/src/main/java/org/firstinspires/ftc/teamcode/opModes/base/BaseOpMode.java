@@ -22,7 +22,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 
 	//protected OdometrySubsystem odometrySubsystem, o;
 	protected TelemetrySubsystem telemetrySubsystem, t;
-	//protected LiftSubsystem liftSubsystem, lift;
+	protected LiftSubsystem liftSubsystem, lift;
 	protected HardwareMap hMap;
 
 	public abstract void setup();
@@ -35,7 +35,7 @@ public abstract class BaseOpMode extends CommandOpMode {
 		telemetrySubsystem = new TelemetrySubsystem(telemetry);
 		driveSubsystem = new TankDriveSubsystem(hMap, telemetrySubsystem);
 
-		//liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
+		liftSubsystem = new LiftSubsystem(hMap, telemetrySubsystem);
 
 		//odometrySubsystem = new OdometrySubsystem(hMap, telemetrySubsystem);
 		//odometrySubsystem.resetEncoders();
@@ -44,6 +44,6 @@ public abstract class BaseOpMode extends CommandOpMode {
 		d = driveSubsystem;
 		//o = odometrySubsystem;
 		t = telemetrySubsystem;
-		//lift = liftSubsystem;
+		lift = liftSubsystem;
 	}
 }

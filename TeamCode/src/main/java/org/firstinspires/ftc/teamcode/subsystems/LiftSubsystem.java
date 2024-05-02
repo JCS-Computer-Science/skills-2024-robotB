@@ -15,12 +15,10 @@ import org.firstinspires.ftc.teamcode.util.Convert;
 
 public class LiftSubsystem extends SubsystemBase {
 	public enum LIFT_POSITIONS {
-		TOP(20),
-		MIDDLE(10),
-		BOTTOM(1),
-		START(0),
-		TILT_SAFE(2),
-		HANG(16);
+		TOP(3),
+		MIDDLE(2),
+		BOTTOM(0);
+
 
 		public final double inches;
 
@@ -30,7 +28,7 @@ public class LiftSubsystem extends SubsystemBase {
 	}
 	private final TelemetrySubsystem t;
 	public DcMotorEx liftMotor;
-	private final double ticksPerInches = 537.7/(Math.PI * Convert.mmToInches(38.2));
+	private final double ticksPerInches = 228/(Math.PI * 2.7);
 	public int ticksFromInches(double inches) {
 		return Double.valueOf(inches * ticksPerInches).intValue();
 	}
@@ -39,7 +37,7 @@ public class LiftSubsystem extends SubsystemBase {
 		liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
 
 		liftMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-		liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+		liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
 //		resetEncoder();
 		liftMotor.setTargetPosition(0);

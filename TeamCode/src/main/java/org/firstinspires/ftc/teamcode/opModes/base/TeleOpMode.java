@@ -33,16 +33,16 @@ public abstract class TeleOpMode extends BaseOpMode {
         driveSubsystem.drive.setMaxSpeed(0.8);
 
 //      Lift Subsystem Controls
-        //GamepadButton toolUp = new GamepadButton(toolOp, GamepadKeys.Button.DPAD_UP);
-        //GamepadButton toolMiddle = new GamepadButton(toolOp, GamepadKeys.Button.DPAD_LEFT);
-        //GamepadButton toolDown = new GamepadButton(toolOp, GamepadKeys.Button.DPAD_DOWN);
+        GamepadButton toolUp = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        GamepadButton toolMiddle = new GamepadButton(driver, GamepadKeys.Button.DPAD_LEFT);
+        GamepadButton toolDown = new GamepadButton(driver, GamepadKeys.Button.DPAD_DOWN);
 
-        //toolUp.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.HANG));
-       // toolMiddle.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.MIDDLE));
-        //toolDown.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.START));
+        toolUp.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.TOP));
+        toolMiddle.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.MIDDLE));
+        toolDown.whenPressed(new MoveLiftPreset(liftSubsystem, LiftSubsystem.LIFT_POSITIONS.BOTTOM));
 
 
-        //liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, toolOp));
+        liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, driver));
 
         setup();
     }
