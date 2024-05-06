@@ -17,7 +17,16 @@ public class MoveLiftManual extends CommandBase {
 
 	@Override
 	public void execute() {
-		int targetTicks = (int)Math.round(liftSubsystem.liftMotor.getTargetPosition() + ((toolOp.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-toolOp.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) )* liftSubsystem.ticksFromInches(0.1)));
+		int targetTicks;
+		if(toolOp.getButton(GamepadKeys.Button.RIGHT_BUMPER)){
+			targetTicks = liftSubsystem.liftMotor.getTargetPosition()+liftSubsystem.ticksFromInches(0.1);
+		}
+		else if(toolOp.getButton(GamepadKeys.Button.LEFT_BUMPER)){
+			targetTicks = liftSubsystem.liftMotor.getTargetPosition()-liftSubsystem.ticksFromInches(0.1);
+		}
+		else{
+			targetTicks = liftSubsystem.liftMotor.getTargetPosition();
+		}
 		liftSubsystem.setPosition(targetTicks);
 	}
 

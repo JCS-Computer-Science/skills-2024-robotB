@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
+import org.firstinspires.ftc.teamcode.commands.arm.MoveArm;
 import org.firstinspires.ftc.teamcode.commands.drive.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftManual;
 import org.firstinspires.ftc.teamcode.commands.lift.MoveLiftPreset;
@@ -43,6 +44,7 @@ public abstract class TeleOpMode extends BaseOpMode {
 
 
         liftSubsystem.setDefaultCommand(new MoveLiftManual(liftSubsystem, driver));
+        armSubsystem.setDefaultCommand(new MoveArm(armSubsystem, driver));
 
         setup();
     }
